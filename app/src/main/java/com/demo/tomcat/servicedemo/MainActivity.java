@@ -13,25 +13,28 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
-    final static String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    Button startService, stopService, bindService, unbindService;
 
     //Handler handler;
     private ServiceDemo.DownloadBinder  downloadBinder;
-    private ServiceConnection   connection = new ServiceConnection() {
-        final String CONNECTAG = ServiceConnection.class.getSimpleName();
+    private ServiceConnection   connection = new ServiceConnection()
+    {
+        private final String CONNECTAG = ServiceConnection.class.getSimpleName();
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-
+            Log.w(CONNECTAG, " onServiceConnected()");
             downloadBinder = (ServiceDemo.DownloadBinder) service;
             downloadBinder.startBownload();
             downloadBinder.getProgress();
-            Log.d(CONNECTAG, "onServiceConnected()");
+
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.d(CONNECTAG, "onServiceDisconnected()");
+            Log.w(CONNECTAG, " onServiceDisconnected()");
         }
     };
 
@@ -40,21 +43,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.w(TAG, "onCreate(), ");
 
-        Button startService = (Button) findViewById(R.id.start_service);
-        Button stopService = (Button) findViewById(R.id.stop_service);
-        startService.setOnClickListener(this);
-        stopService.setOnClickListener(this);
-
-        Button bindService = (Button) findViewById(R.id.bind_service);
-        Button unbindService = (Button) findViewById(R.id.unbind_service);
-        bindService.setOnClickListener(this);
-        unbindService.setOnClickListener(this);
+        initView();
+        initControl();
     }
 
     @Override
     public void onClick(View v)
     {
+        Log.w(TAG, "onClick(), Id: " + getResources().getResourceName(v.getId()));
         switch (v.getId())
         {
             case R.id.start_service:
@@ -74,7 +72,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.unbind_service:
                 try {
-                    unbindService(connection);
+                    if (connection != null)
+                        unbindService(connection);
+                    else
+                        Log.e(TAG, "1 connect is NULL !!");
                 }
                 catch (Exception e) {
                  e.printStackTrace();
@@ -85,7 +86,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
-
     }
+
+
+    //--------------------- user function --------------------------//
+    private void initView()
+    {
+        Log.w(TAG, " initView(), ");
+        startService = (Button) findViewById(R.id.start_service);
+        stopService = (Button) findViewById(R.id.stop_service);
+        bindService = (Button) findViewById(R.id.bind_service);
+        unbindService = (Button) findViewById(R.id.unbind_service);
+    }
+
+    private void initControl()
+    {
+        Log.w(TAG, " initControl(), ");
+        startService.setOnClickListener(this);
+        stopService.setOnClickListener(this);
+        bindService.setOnClickListener(this);
+        unbindService.setOnClickListener(this);
+    }
+
 }
 

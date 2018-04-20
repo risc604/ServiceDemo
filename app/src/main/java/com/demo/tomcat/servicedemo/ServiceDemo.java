@@ -16,42 +16,43 @@ public class ServiceDemo extends Service
         final String TAGDB = DownloadBinder.class.getSimpleName();
         public void startBownload()
         {
-            Log.d(TAGDB, "startBownload() executed !!");
+            Log.w(TAGDB, "startBownload(), ");
         }
 
         public int getProgress()
         {
-            Log.d(TAGDB, "getProgress() executed !!");
+            Log.w(TAGDB, "getProgress(), ");
             return 0;
         }
     }
 
     public ServiceDemo() {
+        Log.w(TAG, "ServiceDemo(), constructor ");
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
         //throw new UnsupportedOperationException("Not yet implemented");
-        Log.d(TAG, "onBind() executed !!");
+        Log.w(TAG, "onBind(), ");
         return mBinder;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG, "onCreate() executed !!");
+        Log.w(TAG, "onCreate(), ");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand() executed !!");
+        Log.w(TAG, "onStartCommand(), ");
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "onDestroy() executed !!");
+        Log.w(TAG, "onDestroy(), ");
         super.onDestroy();
     }
 }
