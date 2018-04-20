@@ -3,6 +3,7 @@ package com.demo.tomcat.servicedemo;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 {
     final static String TAG = MainActivity.class.getSimpleName();
 
+    //Handler handler;
     private ServiceDemo.DownloadBinder  downloadBinder;
     private ServiceConnection   connection = new ServiceConnection() {
         final String CONNECTAG = ServiceConnection.class.getSimpleName();
