@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initControl();
     }
 
+
     @Override
     public void onClick(View v)
     {
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bind_service:
                 Intent bindIntent = new Intent(this, ServiceDemo.class);
                 bindService(bindIntent, connection, BIND_AUTO_CREATE);
+
                 break;
 
             case R.id.unbind_service:
